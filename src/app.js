@@ -19,13 +19,29 @@ export default function app(appDiv) {
     renderStatus(statusDiv, response);
   });
 
-  getUsers().then((response) => {
-    renderUsers(usersUl, response);
-  });
-  usersUl.addEventListener("click", (e) => {
-    let button = e.target;
-    getUserPosts(button.dataset.userId).then((res) => {
-      renderPosts(postsUl, res);
+  getUsers().then((response) => renderUsers(usersUl, response));
+
+  const loadPost = (e) => {
+    if (e.target.dataset.userId) {
+      getUserPosts(e.target.dataset.userId).then((res) => {
+        renderPosts(postsUl, res);
+      });
+    }
+  };
+
+  usersUl.addEventListener("click", loadPost);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //let form = e.target;
+    const username = document.querySelector("#username").value;
+    const email = document.querySelector("#email").value;
+    //console.log(typeof username, typeof email);
+    createNewUser({ username, email }).then((res) => {
+      renderNewUser(newUserDiv, res);
     });
-  });
+    document.getElementById("new-user-form").reset();
+  };
+
+  newUserForm.addEventListener("submit", handleSubmit);
 }
