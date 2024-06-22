@@ -11,7 +11,7 @@ import {
   createNewUser,
   getUsers,
 } from "./fetch-functions.js";
-
+/** FEEDBACK: Great job getting most test cases to pass! */
 export default function app(appDiv) {
   const { statusDiv, usersUl, postsUl, newUserForm, newUserDiv } =
     setupPageBasics(appDiv);
@@ -34,6 +34,7 @@ export default function app(appDiv) {
   const handleSubmit = (e) => {
     e.preventDefault();
     //let form = e.target;
+    /** FEEDBACK: Here rather than directly getting the element, you should be getting it from the form. */
     const username = document.querySelector("#username").value;
     const email = document.querySelector("#email").value;
     //console.log(typeof username, typeof email);
